@@ -165,7 +165,12 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      
+      var start = majorDiagonalColumnIndexAtFirstRow;
+      var result = [];
+      for(var i = 0; i < this.get(0).length - start; i++){
+        result.push(this.get(i)[start])
+      }
+
       return false; // fixme
     },
 
