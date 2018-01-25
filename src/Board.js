@@ -123,6 +123,7 @@
     hasColConflictAt: function(colIndex) {
       var currentRow = this.get(0);
       var currentCol = [];
+
    
       for(var i = 0; i < currentRow.length;i++){
         currentCol[i] = this.get(i)[colIndex];
@@ -193,16 +194,31 @@
       var result = [];
       var matrixLength = this.get(0).length;
       var count = 0;
+      var flag = false;
+
+      for(var j = 0; j < matrixLength; j++){
+        for(var i = 0; i < matrixLength - j; i++){
+            if(this.get(i)[i+j] === 1){
+              count++;
+            }
+        }
+      }
+
+      if(count > 1){
+        flag = true;
+      }
+      
+
+      count = 0;
       for (var j = 0; j < matrixLength-1; j++){
         var row = this.get(j+1);
-        console.log('row : '+row);
         for (var i = j; i < j+1; i++){
           if (row[i] === 1) {
             count++;
           }
         }
       }
-      return count > 1;
+      return (count > 1) || (flag === true);
     },
 
 
