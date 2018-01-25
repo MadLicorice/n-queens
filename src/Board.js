@@ -81,7 +81,7 @@
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
       var currentRow = this.get(rowIndex);
-      console.log(currentRow);
+  
       //var arr = this.get(rowIndex).split(',');
       //console.log(arr);
       var count = 0;
@@ -95,7 +95,7 @@
         return true;  // more than one rook or queen in one row
       }
       else{
-        console.log('no conflict');
+
         return false;
       }
     },
@@ -123,11 +123,11 @@
     hasColConflictAt: function(colIndex) {
       var currentRow = this.get(0);
       var currentCol = [];
-      console.log(currentCol);
+   
       for(var i = 0; i < currentRow.length;i++){
         currentCol[i] = this.get(i)[colIndex];
       }
-      console.log(currentCol);
+
 
       var count = 0;
       for(var i = 0; i< currentCol.length; i++){
@@ -136,12 +136,7 @@
         }
       }
 
-      if(count > 1){
-        return true;  // more than one rook or queen in one row
-      }
-      else{
-        return false;
-      }
+      return count > 1
     },
 
     // test if any columns on this board contain conflicts
@@ -165,18 +160,49 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      var foundNegative = false;
       var start = majorDiagonalColumnIndexAtFirstRow;
-      var result = [];
-      for(var i = 0; i < this.get(0).length - start; i++){
-        result.push(this.get(i)[start])
+      if(start < 0){
+        foundNegative = true;
       }
+      var result = [];
+      var matrixLength = this.get(0).length;
+      //debugger;
+    
+      for(var i = 0; i < matrixLength - start; i++){
+          result.push(this.get(i)[i+start]);
+      }
+      /*
+       for(var i = 0; i < (2 * matrixLength)-1; i++){
+        if (this.get(i)[i+start] !== undefined) {
+          result.push(this.get(i)[i+start]);
+        }
+      }*/
 
-      return false; // fixme
+      var count = 0;
+      for(var i = 0; i< result.length; i++){
+        if(result[i] === 1){
+          count++;
+        }
+      }
+      return count > 1; 
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      var result = [];
+      var matrixLength = this.get(0).length;
+      var count = 0;
+      for (var j = 0; j < matrixLength-1; j++){
+        var row = this.get(j+1);
+        console.log('row : '+row);
+        for (var i = j; i < j+1; i++){
+          if (row[i] === 1) {
+            count++;
+          }
+        }
+      }
+      return count > 1;
     },
 
 
