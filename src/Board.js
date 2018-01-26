@@ -62,14 +62,14 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
     \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
     |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
 
- */
+    */
     /*=========================================================================
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
@@ -139,13 +139,12 @@
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
       result = [];
-      for(var i = 0; i < this.get('n'); i++){
+      for (var i = 0; i < this.get('n'); i++) {
         result.push(this.hasColConflictAt(i));
       }
-      if(result.includes(true)){
+      if (result.includes(true)) {
         return true;
-      }
-      else{
+      } else {
         return false;
       }
     },
