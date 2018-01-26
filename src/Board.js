@@ -20,7 +20,6 @@
 
     rows: function() {
       return _(_.range(this.get('n'))).map(function(rowIndex) {
-        console.log(this.get(rowIndex));
         return this.get(rowIndex);
       }, this);
     },
