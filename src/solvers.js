@@ -18,9 +18,9 @@
 window.findNRooksSolution = function(n) {
   var solution = new Board({n: n});
 
-  for(var i = 0; i < n; i++){
+  for (var i = 0; i < n; i++) {
     for (var j = 0; j < n; j++) {
-      solution.togglePiece(i , j);
+      solution.togglePiece(i, j);
       if (solution.hasAnyRooksConflicts()) {
         solution.togglePiece(i, j);
       }
@@ -30,55 +30,100 @@ window.findNRooksSolution = function(n) {
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution.rows();
-    //n = 3; this.hasAnyRooksConflicts()
+  //n = 3; this.hasAnyRooksConflicts()
 
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
-/*  var findSolution = function (startIndex){
+  var count = 0;
+  var solution = new Board({n: n});
 
-    if(startIndex === n*n-1){
-      return solution;
+  var findSolution = function (startRow) {
+    if (startRow === n) {
+      count++;
+      return;
     }
-  };*/
- // if(n===1){
-  //   solution.togglePiece(0,0);
-  //   return solution.rows();  
-  // }
-/*
-  for(var i = 0; i < n; i++){
-    for (var j = 0; j < n; j++) {
-      index = solution.get(i)[j];
-      solution.togglePiece(index);
-      if (solution.hasAnyRooksConflicts) {
-        solution.togglePiece(index);
-        console.log('found conflict');
-      } else if (i === n - 1) {        
-        count += 1;
-        console.log('solution found');                                                                                                                                       
+    
+    for (var i = 0; i < n; i++) {
+      solution.togglePiece(startRow, i);
+      if (!solution.hasAnyRooksConflicts()) {
+        findSolution(startRow + 1);
       }
+      solution.togglePiece(startRow, i);
     }
-  }*/
+  };
 
-
-  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  return solutionCount;
+  findSolution(0); // call this and save it
+  console.log('Number of solutions for ' + n + ' rooks:', count);
+  return count;
 };
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
-  var solution = undefined; //fixme
+  var count = [];
+  var solution = new Board({n: n});
+  if(n === 0 ){
+    return solution.rows();
+  }
 
-  console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  return solution;
+  var findSolution = function (startRow) {
+    if (startRow === n) {
+      count.push(solution.rows());
+    }
+    
+    for (var i = 0; i < n; i++) {
+      solution.togglePiece(startRow, i); 
+      if (!solution.hasAnyQueensConflicts()) {
+        return findSolution(startRow + 1);
+      }
+      solution.togglePiece(startRow, i);
+    }
+  };
+
+  findSolution(0); // call this and save it
+  console.log('Number of solutions for ' + n + ' rooks:', count);
+  return count;
+
+ /* var solution = new Board({n: n});
+  debugger;
+  console.log(solution.rows());
+
+
+  for (var i = 0; i < n; i++) {
+    for (var j = 1; j < n; j++) {
+      solution.togglePiece(i, j);
+      if (solution.hasAnyQueensConflicts()) {
+        solution.togglePiece(i, j);
+      }
+    }  
+  } 
+
+  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
+  return solution.rows();*/
 };
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var count = 0;
+  var solution = new Board({n: n});
 
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
-  return solutionCount;
+  var findSolution = function (startRow) {
+    if (startRow === n) {
+      count++;
+      return;
+    }
+    
+    for (var i = 0; i < n; i++) {
+      solution.togglePiece(startRow, i); 
+      if (!solution.hasAnyQueensConflicts()) {
+        findSolution(startRow + 1);
+      }
+      solution.togglePiece(startRow, i);
+    }
+  };
+
+  findSolution(0); // call this and save it
+  console.log('Number of solutions for ' + n + ' rooks:', count);
+  return count;
 };

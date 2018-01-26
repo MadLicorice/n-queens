@@ -85,16 +85,15 @@
       //var arr = this.get(rowIndex).split(',');
       //console.log(arr);
       var count = 0;
-      for(var i = 0; i< currentRow.length; i++){
-        if(currentRow[i] === 1){
+      for (var i = 0; i < currentRow.length; i++) {
+        if (currentRow[i] === 1) {
           count++;
         }
       }
 
-      if(count > 1){
-        return true;  // more than one rook or queen in one row
-      }
-      else{
+      if (count > 1) { 
+        return true; 
+      } else {
 
         return false;
       }
@@ -103,13 +102,12 @@
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
       var result = [];
-      for(var i = 0; i < this.get(0).length; i++){
+      for (var i = 0; i < this.get('n'); i++) {
         result.push(this.hasRowConflictAt(i));
       }
-      if(result.includes(true)){
+      if (result.includes(true)) {
         return true;
-      }
-      else{
+      } else {
         return false;
       }
     },
@@ -121,29 +119,28 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      var currentRow = this.get(0);
       var currentCol = [];
 
    
-      for(var i = 0; i < currentRow.length;i++){
+      for (var i = 0; i < this.get('n'); i++) {
         currentCol[i] = this.get(i)[colIndex];
       }
 
 
       var count = 0;
-      for(var i = 0; i< currentCol.length; i++){
-        if(currentCol[i] === 1){
+      for (var i = 0; i < currentCol.length; i++) {
+        if (currentCol[i] === 1) {
           count++;
         }
       }
 
-      return count > 1
+      return count > 1;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
       result = [];
-      for(var i = 0; i < this.get(0).length; i++){
+      for(var i = 0; i < this.get('n'); i++){
         result.push(this.hasColConflictAt(i));
       }
       if(result.includes(true)){
@@ -162,7 +159,7 @@
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
       var start = majorDiagonalColumnIndexAtFirstRow;
-      var matrixLength = this.get(0).length;
+      var matrixLength = this.get('n');
       var count = 0;
     
       for (var i = 0; i < matrixLength; i++) {
@@ -180,11 +177,11 @@
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      var matrixLength = this.get(0).length;
+      var matrixLength = this.get('n');
       var flag = false;
     
-      for (var i = -(matrixLength-1); i < matrixLength; i++) {
-        if(this.hasMajorDiagonalConflictAt(i)){
+      for (var i = -(matrixLength - 1); i < matrixLength; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
           flag = true;
         }
       }
@@ -199,12 +196,12 @@
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
       var start = minorDiagonalColumnIndexAtFirstRow;
-      var matrixLength = this.get(0).length;
+      var matrixLength = this.get('n');
       var count = 0;
     
       for (var i = 0; i < matrixLength; i++) {
         for (var j = 0; j < matrixLength; j++) {
-          if (this._getFirstRowColumnIndexForMinorDiagonalOn(i,j) === start) {
+          if (this._getFirstRowColumnIndexForMinorDiagonalOn(i, j) === start) {
             if (this.get(i)[j] === 1) {
               count++;
             }
@@ -217,11 +214,11 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      var matrixLength = this.get(0).length;
+      var matrixLength = this.get('n');
       var flag = false;
     
-      for (var i = 0; i < matrixLength * 2-1; i++) {
-        if(this.hasMinorDiagonalConflictAt(i)){
+      for (var i = 0; i < matrixLength * 2 - 1; i++) {
+        if (this.hasMinorDiagonalConflictAt(i)) { 
           flag = true;
         }
       }
